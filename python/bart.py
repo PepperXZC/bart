@@ -11,6 +11,17 @@ import tempfile as tmp
 import cfl
 import os
 from wslsupport import PathCorrection
+import platform
+
+def get_os():
+    os_name = platform.system()
+    if os_name == 'Windows':
+        return 'Windows'
+    elif os_name == 'Linux':
+        return 'Linux'
+    else:
+        return 'Unknown OS'
+
 
 def bart(nargout, cmd, *args, **kwargs):
 
@@ -63,6 +74,10 @@ def bart(nargout, cmd, *args, **kwargs):
 
     if os.name =='nt':
         if isWSL:
+            outfiles_win = [item for item in outfiles]
+            infiles_win = [item for item in infiles]
+            infiles_kw_win = [item for item in infiles_kw]
+
             #For WSL and modify paths
             infiles = [PathCorrection(item) for item in infiles]
             infiles_kw = [PathCorrection(item) for item in infiles_kw]
@@ -89,6 +104,12 @@ def bart(nargout, cmd, *args, **kwargs):
     # store error code, stdout and stderr in function attributes for outside access
     # this makes it possible to access these variables from outside the function (e.g "print(bart.ERR)")
     bart.ERR, bart.stdout, bart.stderr = ERR, stdout, stderr
+    os_name = get_os()
+    if os_name == 'Windows':
+        infiles = infiles_win
+        infiles_kw = infiles_kw_win
+        outfiles = outfiles_win
+    
 
     for elm in infiles:
         if os.path.isfile(elm + '.cfl'):

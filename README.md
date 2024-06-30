@@ -16,14 +16,15 @@ NOT FOR DIAGNOSTIC USE. It comes without any warranty
 For more information: https://mrirecon.github.io/bart/
 
 
-Information for Contributors
-----------------------------
+---
 
-Thank you for helping to improve BART! In order for us to be able
-to accept your contribution, it has to be released under the BSD
-license used by BART (see LICENSE file). By submitting patches to
-us it is understood that you agree to these terms and that you
-confirm that you hold all necessary rights yourself or have
-permission from the copyright holder. Please also add the name of
-the copyright holder to the copyright header in all new or changed
-files.
+xzc:
+
+This forked version of BART toolbox can enable local Windows call from python scripts after installation following [BART Installation on WSL](https://mrirecon.github.io/bart/installation_windows.html). WSL is only called once after installation and native Python on Windows can call this toolbox.
+
+I recommend you affiliate this code when using BART in this way:
+```python
+import sys
+BART_PYTHON_ROOT = "the path you copied BART/python"
+sys.path.append(BART_PYTHON_ROOT)
+```
