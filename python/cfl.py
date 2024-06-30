@@ -135,7 +135,9 @@ def writecfl(name, array):
 
     with open(name + ".cfl", "a+b") as d:
         os.ftruncate(d.fileno(), size)
-        mm = mmap.mmap(d.fileno(), size, flags=mmap.MAP_SHARED, prot=mmap.PROT_WRITE)
+        # mm = mmap.mmap(d.fileno(), size, flags=mmap.MAP_SHARED, prot=mmap.PROT_WRITE)
+        # xzc
+        mm = mmap.mmap(d.fileno(), size)
         if array.dtype != np.complex64:
             array = array.astype(np.complex64)
         mm.write(np.ascontiguousarray(array.T))
